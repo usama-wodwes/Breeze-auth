@@ -29,9 +29,10 @@
                 <label class="block font-semibold text-gray-700">Role:</label>
                 <select name="role"
                     class="w-full border border-gray-300 p-2 rounded-lg focus:ring-2 focus:ring-blue-400">
-                    <option value="user" {{ $user->role == 'user' ? 'selected' : '' }}>User</option>
-                    <option value="admin" {{ $user->role == 'admin' ? 'selected' : '' }}>Admin</option>
+                    <option value="user" {{ $user->hasRole('user') ? 'selected' : '' }}>User</option>
+                    <option value="admin" {{ $user->hasRole('admin') ? 'selected' : '' }}>Admin</option>
                 </select>
+
             </div>
 
             <!-- Buttons -->

@@ -1,4 +1,6 @@
-<x-layout>
+@extends('layouts.app')
+
+@section('content')
     <x-card class="p-10 rounded-lg shadow-lg">
         <header class="mb-6">
             <h1 class="text-3xl text-center font-bold uppercase text-gray-800">
@@ -12,6 +14,7 @@
                 class="bg-laravel/90 hover:bg-laravel text-white font-bold py-2 px-4 rounded-xl shadow-md transition">
                 <i class="fa-solid fa-user-plus"></i> Create User
             </a>
+
         </div>
 
         <!-- Users Table -->
@@ -67,4 +70,4 @@
             {{ $users->links() }}
         </div>
     </x-card>
-</x-layout>
+@endsection

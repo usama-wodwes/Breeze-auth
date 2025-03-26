@@ -1,4 +1,6 @@
-<x-layout>
+@extends('layouts.app')
+
+@section('content')
     <x-card class="p-10 rounded-lg shadow-lg">
         <header class="mb-6">
             <h1 class="text-3xl text-center font-bold uppercase text-gray-800">
@@ -29,6 +31,13 @@
                 <input type="password" name="password" required
                     class="w-full border border-gray-300 p-2 rounded-lg focus:ring-2 focus:ring-blue-400">
             </div>
+            <!-- Password Confirmation -->
+            <div>
+                <label class="block font-semibold text-gray-700">Confirm Password:</label>
+                <input type="password" name="password_confirmation" required
+                    class="w-full border border-gray-300 p-2 rounded-lg focus:ring-2 focus:ring-blue-400">
+            </div>
+
 
             <!-- Role -->
             <div>
@@ -42,16 +51,15 @@
 
             <!-- Buttons -->
             <div class="flex justify-between mt-6">
-                <a href="{{ route('admin.users.index') }}"
+                <a href="{{ route('admin.users.create') }}"
                     class="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition">
                     <i class="fa-solid fa-arrow-left"></i> Back
                 </a>
 
-                <button type="submit"
-                    class="bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600 transition">
+                <button type="submit" class="bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600 transition">
                     <i class="fa-solid fa-user-plus"></i> Create User
                 </button>
             </div>
         </form>
     </x-card>
-</x-layout>
+@endsection

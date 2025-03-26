@@ -5,12 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rules\Password;
 
 class AdminUserController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('admin'); // Restrict access to admins only
+        $this->middleware('role:admin'); // Restrict access to admins only
     }
 
     // ✅ View All Users (Admin Only)
@@ -52,23 +53,28 @@ class AdminUserController extends Controller
         return view('admin.users.edit', compact('user'));
     }
 
+
+
     // ✅ Update User (Admin Only)
     public function update(Request $request, User $user)
     {
         $request->validate([
-            'name' => 'required',
+            'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email,' . $user->id,
-            'role' => 'required|in:user,admin'
+            'role' => 'required|in:user,admin', // Validate role
         ]);
 
         $user->update([
             'name' => $request->name,
             'email' => $request->email,
-            'role' => $request->role
         ]);
+
+        // Assign the new role (Spatie handles roles this way)
+        $user->syncRoles([$request->role]);
 
         return redirect()->route('admin.users.index')->with('success', 'User updated successfully.');
     }
+
 
     // ✅ Delete User (Admin Only)
     public function destroy(User $user)

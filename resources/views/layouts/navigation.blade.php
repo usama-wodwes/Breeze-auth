@@ -28,31 +28,15 @@
                             Users </x-nav-link>
                     @endrole
 
-                    {{-- @if (auth()->user()->role === 'admin')
-                        <p class="text-green-500">You are an admin</p>
-                        <x-nav-link href="{{ route('admin.users.index') }}">
-                            <i class="fa-solid fa-users-gear"></i> Manage Users
-                        </x-nav-link>
-                    @else
-                        <p class="text-red-500">You are NOT an admin</p>
-                    @endif --}}
-                    {{-- @if (auth()->user()->role === 'admin')
-                        <p class="text-green-500">You are an admin</p>
-
-                        <p>Roles: {{ json_encode(auth()->user()->getRoleNames()) }}</p>
-                        <p>Permissions: {{ json_encode(auth()->user()->getAllPermissions()->pluck('name')) }}</p>
-
-                        <x-nav-link href="{{ route('admin.users.index') }}">
-                            <i class="fa-solid fa-users-gear"></i> Manage Users
-                        </x-nav-link>
-                    @else
-                        <p class="text-red-500">You are NOT an admin</p>
-                    @endif --}}
-
-
                     <x-nav-link href="/dashboard"> <i class="fa-solid fa-house"></i> Dashboard </x-nav-link>
-                    <span class="mr-4">Role: <span
-                            class="hover:text-laravel">{{ auth()->user()->roles[0]->name }}</span></span>
+                    {{-- <span class="mr-4">Role: <span
+                            class="hover:text-laravel">{{ auth()->user()->roles->name }}</span></span> --}}
+                    {{-- @if (auth()->check() &&
+    auth()->user()->hasRole(['admin', 'user']))
+                        <span class="hover:text-laravel">{{ auth()->user()->getRoleNames()->first() }}</span>
+                    @else
+                        <span class="hover:text-laravel">No Role Assigned</span>
+                    @endif --}}
 
                     <!-- Logout Button -->
                     <form method="POST" action="/logout" class="inline">
