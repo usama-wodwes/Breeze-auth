@@ -1,4 +1,6 @@
-<x-layout>
+@extends('layouts.app')
+
+@section('content')
     @php
         $isAdmin = $isAdmin ?? false; // Ensure $isAdmin is always defined
     @endphp
@@ -7,6 +9,10 @@
             <h1 class="text-3xl text-center font-bold my-6 uppercase">
                 Manage Gigs
             </h1>
+            <div class="w-full py-4">
+                <a href="/listings/create" class="absolute top-1/3 right-10 bg-laravel text-white py-2 px-5">Post Job</a>
+
+            </div>
         </header>
         <table class="w-full table-auto rounded-sm">
             <tbody>
@@ -49,4 +55,4 @@
             </tbody>
         </table>
     </x-card>
-</x-layout>
+@endsection

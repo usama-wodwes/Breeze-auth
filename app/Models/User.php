@@ -38,8 +38,8 @@ class User extends Authenticatable
         return $this->hasMany(Listing::class, 'user_id');
     }
 
-    public function hasRole($role)
-    {
-        return $this->role === $role;
-    }
+    // public function hasRole($role)
+    // {
+    //     return $this->role === $role;
+    // }
 }

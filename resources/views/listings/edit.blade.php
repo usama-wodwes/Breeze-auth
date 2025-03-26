@@ -1,4 +1,6 @@
-<x-layout>
+@extends('layouts.app')
+
+@section('content')
     <x-card class="p-10 max-w-lg mx-auto mt-24">
         <header class="text-center">
             <h2 class="text-2xl font-bold uppercase mb-1">
@@ -73,8 +75,10 @@
                     Company Logo
                 </label>
                 <img class="w-48 mr-6 mb-6"
-                    src="{{ $listing->logo ? asset('storage/' . $listings->logo) : asset('/images/no-image.png') }}"
+                    src="{{ $listing->logo ? asset('storage/' . $listing->logo) : asset('/images/no-image.png') }}"
                     alt="logo" />
+                {{-- {{ dd($listing->logo) }} --}}
+
                 <input type="file" class="border border-gray-200 rounded p-2 w-full" name="logo"
                     value={{ old('logo') }} />
                 @error('logo')
@@ -103,4 +107,4 @@
             </div>
         </form>
     </x-card>
-</x-layout>
+@endsection

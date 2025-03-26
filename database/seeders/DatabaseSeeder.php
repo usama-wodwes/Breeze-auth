@@ -18,12 +18,17 @@ class DatabaseSeeder extends Seeder
         // \App\Models\User::factory(10)->create();
         $user =  User::factory()->create([
             'name' => 'usama',
-            'email' => 'usama@gmail.com'
+            'email' => 'usama@gmail.com',
+            'password' => bcrypt('password'),
         ]);
 
-        Listing::factory(10)->create([
-            'user_id' => $user->id
+        $this->call([
+            RolePermissionSeeder::class,
         ]);
+
+        // Listing::factory(10)->create([
+        //     'user_id' => $user->id
+        // ]);
         // Listing::create(
         //     [
         //         'title' => 'Laravel Senior Developer',

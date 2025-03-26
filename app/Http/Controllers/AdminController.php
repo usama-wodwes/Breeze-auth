@@ -22,6 +22,8 @@ class AdminController extends Controller
 
     public function approveProduct($id)
     {
+        $this->authorize('approve product'); // Ensure only authorized users can approve
+
         $listing = Listing::findOrFail($id);
         $listing->status = 'approved';
         $listing->save();

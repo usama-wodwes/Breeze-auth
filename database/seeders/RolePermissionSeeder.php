@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\User;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
@@ -32,5 +33,11 @@ class RolePermissionSeeder extends Seeder
         // Give permissions to roles
         $adminRole->givePermissionTo(['manage users', 'view all products', 'approve products']);
         $userRole->givePermissionTo(['create product', 'edit own product', 'delete own product']);
+
+        // Assign Admin Role to First User
+        $admin = User::first();
+        if ($admin) {
+            $admin->assignRole('admin');
+        }
     }
 }

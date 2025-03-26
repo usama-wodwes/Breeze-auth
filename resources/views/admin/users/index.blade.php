@@ -57,6 +57,8 @@
                         <td colspan="4" class="text-center text-gray-600 py-4">No users found.</td>
                     </tr>
                 @endforelse
+
+
             </tbody>
         </table>
 
