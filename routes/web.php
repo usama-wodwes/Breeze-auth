@@ -40,17 +40,23 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::get('/products', [AdminController::class, 'viewAllProducts'])->name('products');
     Route::post('/products/approve/{id}', [AdminController::class, 'approveProduct'])->name('products.approve');
 
+    Route::post('/listings/{listing}/approve', [AdminController::class, 'approve'])->name('listings.approve');
+    Route::post('/listings/{listing}/reject', [AdminController::class, 'reject'])->name('listings.reject');
+
+
     Route::get('/admin/listings', [\App\Http\Controllers\AdminController::class, 'index'])->name('admin.listings');
 
     Route::get('/listings', [AdminController::class, 'index'])->name('listings');
-    Route::post('/listings/{listing}/approve', [AdminController::class, 'approve'])->name('listings.approve');
-    Route::post('/listings/{listing}/reject', [AdminController::class, 'reject'])->name('listings.reject');
+    // Route::post('/listings/{listing}/approve', [AdminController::class, 'approve'])->name('listings.approve');
+    // Route::post('/listings/{listing}/reject', [AdminController::class, 'reject'])->name('listings.reject');
 });
 
 
 
 // Dashboard Route
+Route::get('/dashboard', [ListingController::class, 'index'])->name('dashboard');
 Route::get('/dashboard', function () {
+
     $listings = Listing::all() ?? collect();
     return view('dashboard', compact('listings'));
 })->middleware(['auth', 'verified'])->name('dashboard');

@@ -11,13 +11,13 @@ class ListingController extends Controller
     // ✅ Show listings
     public function index()
     {
-        if (auth()->check() && auth()->user()->hasRole('admin')) {
+        if (auth()->user()->hasRole('admin')) {
             // Admin sees all listings but cannot modify them
             $listings = Listing::paginate(10);
             return view('listings.index', compact('listings'))->with('isAdmin', true);
         } else {
             // Users see only their own listings and can modify them
-            $listings = Listing::where('user_id', Auth::id())->paginate(10);
+            $listings = Listing::where('user_id', Auth::id())->where('status', 'approved')->paginate(10);
             return view('listings.index', compact('listings'))->with('isAdmin', false);
         }
     }

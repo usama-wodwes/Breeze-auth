@@ -11,18 +11,26 @@
                 </div>
 
                 <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                {{-- <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                </div>
+                </div> --}}
             </div>
 
             <!-- Authentication Links -->
             <div class="hidden sm:flex sm:items-center sm:ms-6">
                 @auth
                     <span class="font-bold uppercase mr-4">Welcome, {{ auth()->user()->name }}</span>
-                    <x-nav-link href="/listings/manage"> <i class="fa-solid fa-gear"></i> Manage Listings </x-nav-link>
+
+                    {{-- <x-nav-link href="/listings/manage"> <i class="fa-solid fa-gear"></i> Manage Listings </x-nav-link> --}}
+
+                    @unless (auth()->user()->hasRole('admin'))
+                        <x-nav-link href="/listings/manage">
+                            <i class="fa-solid fa-gear"></i> Manage Listings
+                        </x-nav-link>
+                    @endunless
+
                     @role('admin')
                         <x-nav-link href="{{ route('admin.users.index') }}"> <i class="fa-solid fa-users-gear"></i> Manage
                             Users </x-nav-link>

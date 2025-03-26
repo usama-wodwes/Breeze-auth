@@ -1,4 +1,6 @@
-<x-layout>
+@extends('layouts.app')
+
+@section('content')
     <x-card class="p-10 rounded-lg shadow-lg">
         <header class="mb-6">
             <h1 class="text-3xl text-center font-bold uppercase text-gray-800">
@@ -48,4 +50,4 @@
             </div>
         </form>
     </x-card>
-</x-layout>
+@endsection
