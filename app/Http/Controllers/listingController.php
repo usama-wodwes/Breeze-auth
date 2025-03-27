@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Listing;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class ListingController extends Controller
@@ -11,7 +11,7 @@ class ListingController extends Controller
     // ✅ Show listings
     public function index()
     {
-        if (auth()->user()->hasRole('admin')) {
+        if (auth()->user() && auth()->user()->hasRole('admin')) {
             // Admin sees all listings but cannot modify them
             $listings = Listing::paginate(10);
             return view('listings.index', compact('listings'))->with('isAdmin', true);
@@ -45,8 +45,8 @@ class ListingController extends Controller
         ]);
 
         $listing = new Listing($request->all());
-        $listing->user_id = Auth::id(); // Assign ownership
-        $listing->status = 'pending'; // Default status for admin approval
+        $listing->user_id = Auth::id();  // Assign ownership
+        $listing->status = 'pending';  // Default status for admin approval
         $listing->save();
 
         return redirect()->route('listings.index')->with('success', 'Listing created successfully.');
@@ -56,20 +56,17 @@ class ListingController extends Controller
     public function manage()
     {
         $user = auth()->user();
-        $isAdmin = $user->hasRole('admin'); // Check if the user is an admin
+        $isAdmin = $user->hasRole('admin');  // Check if the user is an admin
 
         if ($isAdmin) {
             return redirect()->route('listings.index')->with('error', 'Admins cannot manage listings.');
         }
 
         return view('listings.manage', [
-            'listings' => $user->listings, // Get only the user's listings
+            'listings' => $user->listings,  // Get only the user's listings
             'isAdmin' => $isAdmin
         ]);
     }
-
-
-
 
     // ✅ Show single listing (everyone can view)
     public function show(Listing $listing)
@@ -109,7 +106,7 @@ class ListingController extends Controller
             'company' => 'required',
             'location' => 'required',
             'website' => 'required',
-            'email' => ['required', 'email'],
+            'email' => 'required|email',
             'tags' => 'required',
             'description' => 'required',
         ]);

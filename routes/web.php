@@ -1,11 +1,11 @@
 <?php
 
-use App\Models\Listing;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\ListingController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\AdminUserController;
+use App\Models\Listing;
+use Illuminate\Support\Facades\Route;
 
 // Home Page - Redirect to Listings
 Route::get('/', [ListingController::class, 'index'])->name('listings.index');
@@ -27,7 +27,6 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-
 // Admin Routes
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/users', [AdminUserController::class, 'index'])->name('users.index');
@@ -40,23 +39,18 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::get('/products', [AdminController::class, 'viewAllProducts'])->name('products');
     Route::post('/products/approve/{id}', [AdminController::class, 'approveProduct'])->name('products.approve');
 
-    Route::post('/listings/{listing}/approve', [AdminController::class, 'approve'])->name('listings.approve');
-    Route::post('/listings/{listing}/reject', [AdminController::class, 'reject'])->name('listings.reject');
-
-
-    Route::get('/admin/listings', [\App\Http\Controllers\AdminController::class, 'index'])->name('admin.listings');
+    Route::post('/listings/update', [AdminController::class, 'update'])->name('listings.approve');
+    // Route::post('/listings/{listing}/approve', [AdminController::class, 'approve'])->name('listings.approve');
+    // Route::post('/listings/{listing}/reject', [AdminController::class, 'reject'])->name('listings.reject');
 
     Route::get('/listings', [AdminController::class, 'index'])->name('listings');
     // Route::post('/listings/{listing}/approve', [AdminController::class, 'approve'])->name('listings.approve');
     // Route::post('/listings/{listing}/reject', [AdminController::class, 'reject'])->name('listings.reject');
 });
 
-
-
 // Dashboard Route
 Route::get('/dashboard', [ListingController::class, 'index'])->name('dashboard');
 Route::get('/dashboard', function () {
-
     $listings = Listing::all() ?? collect();
     return view('dashboard', compact('listings'));
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -65,20 +59,20 @@ Route::get('/dashboard', function () {
 require __DIR__ . '/auth.php';
 
 /*
-// Duplicate & Unnecessary Routes - Moved to the End for Reference
-
-Route::middleware(['auth', 'role:user'])->group(function () {
-    Route::resource('/products', ListingController::class)->except(['index']);
-});
-
-Route::get('/admin/users', function () {
-    $listings = Listing::all() ?? collect();
-    return view('manageUsers', compact('listings'));
-})->middleware(['auth', 'verified'])->name('manageUsers');
-
-Route::middleware(['auth', 'role:admin'])->group(function () {
-    Route::get('/admin/listings', [AdminController::class, 'index'])->name('admin.listings');
-    Route::post('/admin/listings/{listing}/approve', [AdminController::class, 'approve'])->name('admin.listings.approve');
-    Route::post('/admin/listings/{listing}/reject', [AdminController::class, 'reject'])->name('admin.listings.reject');
-});
-*/
+ * // Duplicate & Unnecessary Routes - Moved to the End for Reference
+ *
+ * Route::middleware(['auth', 'role:user'])->group(function () {
+ *     Route::resource('/products', ListingController::class)->except(['index']);
+ * });
+ *
+ * Route::get('/admin/users', function () {
+ *     $listings = Listing::all() ?? collect();
+ *     return view('manageUsers', compact('listings'));
+ * })->middleware(['auth', 'verified'])->name('manageUsers');
+ *
+ * Route::middleware(['auth', 'role:admin'])->group(function () {
+ *     Route::get('/admin/listings', [AdminController::class, 'index'])->name('admin.listings');
+ *     Route::post('/admin/listings/{listing}/approve', [AdminController::class, 'approve'])->name('admin.listings.approve');
+ *     Route::post('/admin/listings/{listing}/reject', [AdminController::class, 'reject'])->name('admin.listings.reject');
+ * });
+ */
