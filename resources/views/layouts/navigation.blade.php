@@ -54,7 +54,7 @@
                         </button>
                     </form>
                 @else
-                    <x-nav-link href="/register"> <i class="fa-solid fa-user-plus"></i> Register </x-nav-link>
+                    {{-- <x-nav-link href="/register"> <i class="fa-solid fa-user-plus"></i> Register </x-nav-link> --}}
                     <x-nav-link href="/login"> <i class="fa-solid fa-arrow-right-to-bracket"></i> Login </x-nav-link>
                 @endauth
             </div>
